@@ -9,10 +9,12 @@ public class CameraController : MonoBehaviour
 
     void Update()
     {
-        transform.position = target.position - offset;
+        if(target!=null)
+            transform.position = target.position - offset;
     }
     void LateUpdate()
     {
-        transform.rotation = Quaternion.LookRotation(target.position - transform.position, Vector3.up);
+        if(target!=null)
+            transform.rotation = Quaternion.LookRotation(target.position - transform.position, Vector3.up);
     }
 }

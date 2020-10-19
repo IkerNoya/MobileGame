@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 4256985150174659561}
   m_Layer: 0
   m_Name: Cannon
-  m_TagString: Untagged
+  m_TagString: Turret
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -108,10 +108,9 @@ GameObject:
   - component: {fileID: 4256985150614940053}
   - component: {fileID: 4256985150614940049}
   - component: {fileID: 4256985150614940079}
-  - component: {fileID: 4256985150614940078}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -123,7 +122,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4256985150614940052}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -1.92, y: 1.5, z: -1.61}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -221,19 +220,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!65 &4256985150614940078
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4256985150614940052}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &4256985151784248607
 GameObject:
   m_ObjectHideFlags: 0
@@ -249,7 +235,7 @@ GameObject:
   - component: {fileID: 4256985151784248605}
   m_Layer: 0
   m_Name: Turret
-  m_TagString: Untagged
+  m_TagString: Turret
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -342,6 +328,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 217fdce1bcb0b3d46b51f11a3453d275, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  shootingPoint: {fileID: 0}
+  bullet: {fileID: 0}
+  rotationSpeed: 5
 --- !u!1 &4256985151989426073
 GameObject:
   m_ObjectHideFlags: 0
@@ -353,7 +343,7 @@ GameObject:
   - component: {fileID: 4256985151989426070}
   m_Layer: 0
   m_Name: ShootingPoint
-  m_TagString: Untagged
+  m_TagString: Turret
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -366,7 +356,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4256985151989426073}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 2.32}
+  m_LocalPosition: {x: 0, y: 0, z: 2.564}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4256985151784248604}
