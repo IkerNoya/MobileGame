@@ -8,16 +8,15 @@ public class PlayerController : MonoBehaviour
     [Space]
     [SerializeField] float speed;
     [SerializeField] float rotSpeed;
+    float horizontalRotation;
     Vector3 movement;
 
     void Update()
     {
-        movement = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
-        transform.position += movement * Time.deltaTime * speed; 
+        horizontalRotation = Input.GetAxis("Horizontal");
+        transform.position += transform.forward * Input.GetAxis("Vertical") * Time.deltaTime * speed;
+        if (horizontalRotation != 0)
+            transform.Rotate(new Vector3(0, horizontalRotation * rotSpeed * Time.deltaTime, 0));
     }
-    void LateUpdate()
-    {
-        if(movement!=Vector3.zero)
-            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(movement), rotSpeed);
-    }
+
 }

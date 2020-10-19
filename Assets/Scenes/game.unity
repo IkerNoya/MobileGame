@@ -230,8 +230,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  speed: 7
-  rotSpeed: 0.15
+  speed: 3
+  rotSpeed: 80
 --- !u!65 &126755040
 BoxCollider:
   m_ObjectHideFlags: 0
