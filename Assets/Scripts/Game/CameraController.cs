@@ -18,3 +18,4 @@ public class CameraController : MonoBehaviour
             transform.rotation = Quaternion.LookRotation(target.position - transform.position, Vector3.up);
     }
 }
+    

@@ -105,11 +105,11 @@ GameObject:
   - component: {fileID: 4256985150614940048}
   - component: {fileID: 4256985150614940051}
   - component: {fileID: 4256985150614940050}
+  - component: {fileID: -3284869619966483563}
   - component: {fileID: 4256985150614940053}
-  - component: {fileID: 4256985150614940049}
   - component: {fileID: 4256985150614940079}
   m_Layer: 0
-  m_Name: Player
+  m_Name: Enemy
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -177,6 +177,18 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!114 &-3284869619966483563
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4256985150614940052}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c75400ec525b05143b9a407cbe5d0681, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!65 &4256985150614940053
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -190,20 +202,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &4256985150614940049
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4256985150614940052}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 817364c1cc181dd4c903b852b37ab880, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 3
-  rotSpeed: 80
 --- !u!54 &4256985150614940079
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -232,7 +230,7 @@ GameObject:
   - component: {fileID: 4256985151784248600}
   - component: {fileID: 4256985151784248603}
   - component: {fileID: 4256985151784248602}
-  - component: {fileID: 1228696659}
+  - component: {fileID: 5007918514744418023}
   m_Layer: 0
   m_Name: Turret
   m_TagString: Turret
@@ -316,7 +314,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &1228696659
+--- !u!114 &5007918514744418023
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -325,15 +323,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 4256985151784248607}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c3cd5d3d55d16ed45b74f55a5ba8186e, type: 3}
+  m_Script: {fileID: 11500000, guid: db49d72f954bacf4aa1b84f29d6bb01d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
   shootingPoint: {fileID: 4256985151989426073}
   bullet: {fileID: 3686729454816715017, guid: 6acb740119e8c6f48a3dab6ae48e12a9, type: 3}
   rotationSpeed: 5
-  bulletScript: {fileID: 3977912519380875149, guid: 6acb740119e8c6f48a3dab6ae48e12a9,
-    type: 3}
+  tank: {fileID: 4256985150614940052}
 --- !u!1 &4256985151989426073
 GameObject:
   m_ObjectHideFlags: 0
