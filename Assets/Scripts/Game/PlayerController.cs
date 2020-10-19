@@ -17,6 +17,7 @@ public class PlayerController : MonoBehaviour
     }
     void LateUpdate()
     {
-        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(movement), 0.15f);
+        if(movement!=Vector3.zero)
+            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(movement), rotSpeed);
     }
 }
