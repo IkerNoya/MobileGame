@@ -4,12 +4,9 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField] Transform target = null;
-    [Space]
     [SerializeField] float speed;
     [SerializeField] float rotSpeed;
     float horizontalRotation;
-    Vector3 movement;
 
     void Update()
     {
