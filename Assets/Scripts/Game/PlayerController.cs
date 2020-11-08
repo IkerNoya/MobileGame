@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float rotSpeed;
     float horizontalRotation;
     bool canShoot = false;
+    int hp = 100;
 
     void Update()
     {
