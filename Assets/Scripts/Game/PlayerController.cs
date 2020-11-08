@@ -6,6 +6,7 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField] float speed;
     [SerializeField] float rotSpeed;
+    [SerializeField] GameObject aimIndicator;
     float horizontalRotation;
     bool canShoot = false;
     int hp = 100;
@@ -22,6 +23,10 @@ public class PlayerController : MonoBehaviour
     public bool GetShootBool()
     {
         return canShoot;
+    }
+    public GameObject GetAimIndicator()
+    {
+        return aimIndicator;
     }
 
 }
