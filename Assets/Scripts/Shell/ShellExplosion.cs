@@ -2,24 +2,37 @@
 
 public class ShellExplosion : MonoBehaviour
 {
-    public LayerMask m_TankMask;
-    public ParticleSystem m_ExplosionParticles;       
-    public AudioSource m_ExplosionAudio;              
-    public float m_MaxDamage = 100f;                  
-    public float m_ExplosionForce = 1000f;            
-    public float m_MaxLifeTime = 2f;                  
-    public float m_ExplosionRadius = 5f;              
+    [SerializeField] LayerMask m_TankMask;
+    [SerializeField] ParticleSystem m_ExplosionParticles; 
+    [SerializeField] AudioSource m_ExplosionAudio;
+    [SerializeField] GameObject bullet;
+    [SerializeField] float m_MaxDamage = 100f;                  
+    [SerializeField] float m_ExplosionForce = 1000f;            
+    [SerializeField] float m_MaxLifeTime = 1f;                  
+    [SerializeField] float m_ExplosionRadius = 5f;
+    Bullet bulletScript;
 
 
     private void Start()
     {
-        Destroy(gameObject, m_MaxLifeTime);
+        bulletScript = GetComponent<Bullet>();
+        //Destroy(gameObject, m_MaxLifeTime);
     }
 
 
     private void OnTriggerEnter(Collider other)
     {
         // Find all the tanks in an area around the shell and damage them.
+    }
+    private void OnCollisionEnter(Collision collision)
+    {
+        if((collision.gameObject.CompareTag("Player") && bulletScript.getUser() != Bullet.User.player) || (collision.gameObject.CompareTag("Enemy") && bulletScript.getUser() != Bullet.User.enemy))
+        {
+            m_ExplosionParticles.Play();
+            m_ExplosionAudio.Play();
+            Destroy(gameObject, m_MaxLifeTime);
+            Destroy(bullet);
+        }
     }
 
 

@@ -38,15 +38,19 @@ public class Bullet : MonoBehaviour
     {
         user = _user;
     }
-    void OnCollisionEnter(Collision collision)
+    public User getUser()
     {
-        if (collision.collider.CompareTag("Enemy") && user==User.player)
-        {
-            Destroy(gameObject);
-        }
-        if (collision.collider.CompareTag("Player") && user == User.enemy)
-        {
-            Destroy(gameObject);
-        }
+        return user;
     }
+    //void OnCollisionEnter(Collision collision)
+    //{
+    //    if (collision.collider.CompareTag("Enemy") && user==User.player)
+    //    {
+    //        Destroy(gameObject);
+    //    }
+    //    if (collision.collider.CompareTag("Player") && user == User.enemy)
+    //    {
+    //        Destroy(gameObject);
+    //    }
+    //}
 }
