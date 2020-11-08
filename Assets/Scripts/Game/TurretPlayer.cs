@@ -12,6 +12,7 @@ public class TurretPlayer : TurretController
         tank = GameObject.FindGameObjectWithTag("Player");
         player = tank.GetComponent<PlayerController>();
         bulletScript = bullet.GetComponent<Bullet>();
+        flash = GetComponentInChildren<ParticleSystem>();
     }
 
     // Update is called once per frame
@@ -36,6 +37,7 @@ public class TurretPlayer : TurretController
             if (timer >= timeLimit - 0.5f)
             {
                 bulletScript.setUser(Bullet.User.player);
+                flash.Play();
                 Instantiate(bullet, shootingPoint.transform.position, Quaternion.identity);
                 timer = 0;
             }

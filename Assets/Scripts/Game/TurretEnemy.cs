@@ -11,6 +11,7 @@ public class TurretEnemy : TurretController
     {
         target = GameObject.FindGameObjectWithTag("Player").transform;
         bulletScript = bullet.GetComponent<Bullet>();
+        flash = GetComponentInChildren<ParticleSystem>();
     }
     void Update()
     {
@@ -18,6 +19,7 @@ public class TurretEnemy : TurretController
         if (timer >= timeLimit+1f)
         {
             bulletScript.setUser(Bullet.User.enemy);
+            flash.Play();
             Instantiate(bullet, shootingPoint.transform.position, Quaternion.identity);
             timer = 0;
         }

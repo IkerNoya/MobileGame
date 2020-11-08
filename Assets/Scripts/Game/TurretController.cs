@@ -9,6 +9,7 @@ public class TurretController : MonoBehaviour
     [SerializeField] protected GameObject shootingPoint;
     [SerializeField] protected GameObject bullet;
     [SerializeField] protected float rotationSpeed;
+    protected ParticleSystem flash;
     protected bool canRotate = false;
     protected float timer = 0;
     protected float timeLimit = 1.5f;
