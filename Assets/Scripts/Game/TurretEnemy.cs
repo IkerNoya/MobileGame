@@ -6,21 +6,22 @@ public class TurretEnemy : TurretController
 {
     [SerializeField] GameObject tank;
     Bullet bulletScript;
+    ObjectPooler pool;
 
     private void Start()
     {
         target = GameObject.FindGameObjectWithTag("Player").transform;
         bulletScript = bullet.GetComponent<Bullet>();
         flash = GetComponentInChildren<ParticleSystem>();
+        pool = ObjectPooler.instance;
     }
     void Update()
     {
         timer += Time.deltaTime;
         if (timer >= timeLimit+1f)
         {
-            bulletScript.setUser(Bullet.User.enemy);
             flash.Play();
-            Instantiate(bullet, shootingPoint.transform.position, Quaternion.identity);
+            pool.SpawnBulletsFromPool("Bullet_Enemy", shootingPoint.transform.position, Quaternion.identity, Bullet.User.enemy, target.position - transform.position);
             timer = 0;
         }
     }
