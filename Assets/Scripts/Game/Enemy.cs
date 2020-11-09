@@ -11,10 +11,6 @@ public class Enemy : MonoBehaviour
     [SerializeField] ParticleSystem explotion;
     bool isDead = false;
     BoxCollider bCollider;
-    void Awake()
-    {
-        ShellExplosion.Hit_Enemy += TakeDamage;
-    }
     void Start()
     {
         bCollider = GetComponent<BoxCollider>();
@@ -26,7 +22,7 @@ public class Enemy : MonoBehaviour
             return;
     }
     
-    void TakeDamage(ShellExplosion se)
+    public void TakeDamage()
     {
         hp -= damage;
         if (hp <= 0)
@@ -42,10 +38,5 @@ public class Enemy : MonoBehaviour
     public int GetHP()
     {
         return hp;
-    }
-
-    void OnDisable()
-    {
-        ShellExplosion.Hit_Enemy -= TakeDamage;
     }
 }

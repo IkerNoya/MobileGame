@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Microsoft.Win32.SafeHandles;
+using System.Collections;
 using System.Collections.Generic;
 using System.Xml;
 using UnityEngine;
@@ -12,6 +13,7 @@ public class TurretPlayer : TurretController
     GameObject aim;
     [SerializeField]float orbitDistance=10f;
     [SerializeField]float orbitDegreePerSecond = 180f;
+    ObjectPooler pooler;
 
     void Start()
     {
@@ -20,6 +22,7 @@ public class TurretPlayer : TurretController
         bulletScript = bullet.GetComponent<Bullet>();
         flash = GetComponentInChildren<ParticleSystem>();
         aim = player.GetAimIndicator();
+        pooler = ObjectPooler.instance;
     }
 
     void Update()
@@ -42,9 +45,9 @@ public class TurretPlayer : TurretController
             canRotate = true;
             if (timer >= timeLimit - 0.5f)
             {
+                pooler.SpawnBulletsFromPool("Bullet_Player", shootingPoint.transform.position, Quaternion.identity, Bullet.User.player, target.position - transform.position);
                 if(bulletScript!=null) bulletScript.setUser(Bullet.User.player);
                 if(flash!=null) flash.Play();
-                if(bullet!=null) Instantiate(bullet, shootingPoint.transform.position, Quaternion.identity);
                 timer = 0;
             }
         }

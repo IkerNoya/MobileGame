@@ -1,4 +1,5 @@
-﻿using System;
+﻿using JetBrains.Annotations;
+using System;
 using UnityEngine;
 
 public class ShellExplosion : MonoBehaviour
@@ -12,13 +13,17 @@ public class ShellExplosion : MonoBehaviour
     float hitLifeTime = 1f;
     Bullet bulletScript;
     public static event Action<ShellExplosion> Hit_Player;
-    public static event Action<ShellExplosion> Hit_Enemy;
     SphereCollider sc;
 
     private void Start()
     {
         bulletScript = GetComponent<Bullet>();
         sc = GetComponent<SphereCollider>();
+    }
+    void Update()
+    {
+        if (bullet.activeSelf)
+            sc.enabled = true;
     }
     private void OnTriggerEnter(Collider other)
     {
@@ -28,15 +33,17 @@ public class ShellExplosion : MonoBehaviour
             m_ExplosionAudio.Play();
             bullet.SetActive(false);
             sc.enabled = false;
+            bullet.SetActive(false);
             if (Hit_Player != null) Hit_Player(this);
         }
         else if ((other.gameObject.CompareTag("Enemy") && bulletScript.getUser() != Bullet.User.enemy))
         {
+            Enemy enemy = other.GetComponent<Enemy>();
+            if (enemy != null) enemy.TakeDamage();
             m_ExplosionParticles.Play();
             m_ExplosionAudio.Play();
             bullet.SetActive(false);
             sc.enabled = false;
-            if (Hit_Enemy != null) Hit_Enemy(this);
         }
         else if (other.gameObject.CompareTag("Enviroment"))
         {
@@ -46,4 +53,9 @@ public class ShellExplosion : MonoBehaviour
             sc.enabled = false;
         }
     }
+    public void SetCollider(bool value)
+    {
+        sc.enabled = value;
+    }
+    
 }

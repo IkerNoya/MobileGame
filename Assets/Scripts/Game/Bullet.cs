@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Scripting;
 
-public class Bullet : MonoBehaviour
+public class Bullet : MonoBehaviour, IPooledObjects
 {
     public enum User
     {
@@ -12,11 +12,13 @@ public class Bullet : MonoBehaviour
     }
     public User user;
     float speed = 8f;
-    Vector3 direction;
+    Vector3 Direction;
     TurretController turret;
     Transform target;
-    void Start()
+    public void OnObjectSpawn()
     {
+        transform.GetChild(0).gameObject.SetActive(true);
+        
         switch (user)
         {
             case User.player:
@@ -27,12 +29,10 @@ public class Bullet : MonoBehaviour
                 break;
         }
         target = turret.GetTarget();
-        direction = target.transform.position - transform.position;
-        transform.rotation = Quaternion.LookRotation(direction, Vector3.up);
     }
     void Update()
     {
-        transform.position += direction.normalized * speed * Time.deltaTime;
+        transform.position += Direction.normalized * speed * Time.deltaTime;
     }
     public void setUser(User _user)
     {
@@ -42,15 +42,9 @@ public class Bullet : MonoBehaviour
     {
         return user;
     }
-    //void OnCollisionEnter(Collision collision)
-    //{
-    //    if (collision.collider.CompareTag("Enemy") && user==User.player)
-    //    {
-    //        Destroy(gameObject);
-    //    }
-    //    if (collision.collider.CompareTag("Player") && user == User.enemy)
-    //    {
-    //        Destroy(gameObject);
-    //    }
-    //}
+    public void SetDirection(Vector3 direction)
+    {
+        Direction = direction;
+    }
+
 }

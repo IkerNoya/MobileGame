@@ -12,10 +12,10 @@ public class HPController : MonoBehaviour
 
     float degreePerSec = 180f;
 
-    GameObject player;
-    GameObject enemy;
-    PlayerController pc;
-    Enemy enemyScript;
+    [SerializeField] GameObject player;
+    [SerializeField] GameObject enemy;
+    [SerializeField] PlayerController pc;
+    [SerializeField] Enemy enemyScript;
 
     public enum User
     {
@@ -27,14 +27,12 @@ public class HPController : MonoBehaviour
     Vector3 initialPos;
     void Awake()
     {
-        initialRot = transform.rotation;
-        initialPos = transform.position;
+        initialRot = slider.transform.rotation;
+        initialPos = slider.transform.position;
     }
 
     void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player");
-        enemy = GameObject.FindGameObjectWithTag("Enemy");
         switch (user)
         {
             case User.player:
@@ -44,9 +42,6 @@ public class HPController : MonoBehaviour
                 if (bar != null) bar.color = Color.red;
                 break;
         }
-
-        if (player != null) pc = player.GetComponent<PlayerController>();
-        if (enemy != null) enemyScript = enemy.GetComponent<Enemy>();
     }
 
     // Update is called once per frame
@@ -56,18 +51,18 @@ public class HPController : MonoBehaviour
         {
             case User.player:
                 if (slider != null) slider.value = pc.GetHP();
-                if (player!=null) transform.position = new Vector3(player.transform.position.x, transform.position.y, player.transform.position.z - zOffset);
+                if (player!=null) slider.transform.position = new Vector3(transform.position.x, slider.transform.position.y, transform.position.z - zOffset);
                 break;
             case User.enemy:
                 if (slider != null) slider.value = enemyScript.GetHP();
-                if (enemy!=null) transform.position = new Vector3(enemy.transform.position.x, transform.position.y, enemy.transform.position.z - zOffset);
+                if (enemy!=null) slider.transform.position = new Vector3(transform.position.x, slider.transform.position.y, transform.position.z - zOffset);
                 break;
         }
     }
 
     void LateUpdate()
     {
-        transform.rotation = initialRot;
+        slider.transform.rotation = initialRot;
     }
 
 }
