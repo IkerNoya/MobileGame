@@ -18,7 +18,6 @@ public class ShellExplosion : MonoBehaviour
     private void Start()
     {
         bulletScript = GetComponent<Bullet>();
-        Destroy(gameObject, m_MaxLifeTime);
         sc = GetComponent<SphereCollider>();
     }
     private void OnTriggerEnter(Collider other)
@@ -27,8 +26,7 @@ public class ShellExplosion : MonoBehaviour
         {
             m_ExplosionParticles.Play();
             m_ExplosionAudio.Play();
-            Destroy(gameObject, hitLifeTime);
-            Destroy(bullet);
+            bullet.SetActive(false);
             sc.enabled = false;
             if (Hit_Player != null) Hit_Player(this);
         }
@@ -36,8 +34,7 @@ public class ShellExplosion : MonoBehaviour
         {
             m_ExplosionParticles.Play();
             m_ExplosionAudio.Play();
-            Destroy(gameObject, hitLifeTime);
-            Destroy(bullet);
+            bullet.SetActive(false);
             sc.enabled = false;
             if (Hit_Enemy != null) Hit_Enemy(this);
         }
@@ -45,8 +42,7 @@ public class ShellExplosion : MonoBehaviour
         {
             m_ExplosionParticles.Play();
             m_ExplosionAudio.Play();
-            Destroy(gameObject, hitLifeTime);
-            Destroy(bullet);
+            bullet.SetActive(false);
             sc.enabled = false;
         }
     }

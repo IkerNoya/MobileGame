@@ -29,7 +29,6 @@ public class Bullet : MonoBehaviour
         target = turret.GetTarget();
         direction = target.transform.position - transform.position;
         transform.rotation = Quaternion.LookRotation(direction, Vector3.up);
-        Destroy(gameObject, 3.0f);
     }
     void Update()
     {
