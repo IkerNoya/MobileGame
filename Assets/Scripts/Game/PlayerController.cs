@@ -70,4 +70,8 @@ public class PlayerController : MonoBehaviour
     {
         ShellExplosion.Hit_Player -= TakeDamage;
     }
+    public int GetHP()
+    {
+        return hp;
+    }
 }

@@ -22,7 +22,6 @@ public class TurretPlayer : TurretController
         aim = player.GetAimIndicator();
     }
 
-    // Update is called once per frame
     void Update()
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -79,8 +78,7 @@ public class TurretPlayer : TurretController
     {
         if (target != null)
         {
-            aim.transform.position = transform.position + (aim.transform.position - transform.position).normalized * orbitDistance;
-            //aim.transform.RotateAround(transform.position, Vector3.up, orbitDegreePerSecond * Time.deltaTime);
+            aim.transform.position = transform.position + (aim.transform.position - transform.position).normalized * orbitDistance; 
             aim.transform.position = Vector3.RotateTowards(transform.position, transform.position + (direction.normalized * orbitDistance), 360f ,orbitDegreePerSecond * Time.deltaTime);
             aim.transform.rotation = Quaternion.LookRotation(direction.normalized, Vector3.up);
         }
