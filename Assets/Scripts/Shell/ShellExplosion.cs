@@ -18,25 +18,23 @@ public class ShellExplosion : MonoBehaviour
         bulletScript = GetComponent<Bullet>();
         Destroy(gameObject, m_MaxLifeTime);
     }
-
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
-        if((collision.gameObject.CompareTag("Player") && bulletScript.getUser() != Bullet.User.player))
+        if ((other.gameObject.CompareTag("Player") && bulletScript.getUser() != Bullet.User.player))
         {
             m_ExplosionParticles.Play();
             m_ExplosionAudio.Play();
             Destroy(gameObject, m_MaxLifeTime);
             Destroy(bullet);
-            if(Hit_Player!=null) Hit_Player(this);
+            if (Hit_Player != null) Hit_Player(this);
         }
-        else if ((collision.gameObject.CompareTag("Enemy") && bulletScript.getUser() != Bullet.User.enemy))
+        else if ((other.gameObject.CompareTag("Enemy") && bulletScript.getUser() != Bullet.User.enemy))
         {
             m_ExplosionParticles.Play();
             m_ExplosionAudio.Play();
             Destroy(gameObject, m_MaxLifeTime);
             Destroy(bullet);
-            if(Hit_Enemy!=null) Hit_Enemy(this);
+            if (Hit_Enemy != null) Hit_Enemy(this);
         }
-        
     }
 }
