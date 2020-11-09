@@ -39,6 +39,11 @@ public class Enemy : MonoBehaviour
         }
     }
 
+    public int GetHP()
+    {
+        return hp;
+    }
+
     void OnDisable()
     {
         ShellExplosion.Hit_Enemy -= TakeDamage;

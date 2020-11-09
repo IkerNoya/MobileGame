@@ -1,17 +1,27 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Experimental.UIElements.GraphView;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class HPController : MonoBehaviour
 {
     [SerializeField] Slider slider;
+    [SerializeField] Image bar;
     [SerializeField] float zOffset;
 
     float degreePerSec = 180f;
 
     GameObject player;
+    GameObject enemy;
     PlayerController pc;
+    Enemy enemyScript;
+
+    public enum User
+    {
+        player, enemy
+    }
+    public User user;
 
     Quaternion initialRot;
     Vector3 initialPos;
@@ -24,14 +34,35 @@ public class HPController : MonoBehaviour
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
+        enemy = GameObject.FindGameObjectWithTag("Enemy");
+        switch (user)
+        {
+            case User.player:
+                if(bar!=null) bar.color = Color.green;
+                break;
+            case User.enemy:
+                if (bar != null) bar.color = Color.red;
+                break;
+        }
+
         if (player != null) pc = player.GetComponent<PlayerController>();
+        if (enemy != null) enemyScript = enemy.GetComponent<Enemy>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (slider != null) slider.value = pc.GetHP();
-        transform.position = new Vector3(player.transform.position.x, transform.position.y, player.transform.position.z - zOffset);
+        switch (user)
+        {
+            case User.player:
+                if (slider != null) slider.value = pc.GetHP();
+                if (player!=null) transform.position = new Vector3(player.transform.position.x, transform.position.y, player.transform.position.z - zOffset);
+                break;
+            case User.enemy:
+                if (slider != null) slider.value = enemyScript.GetHP();
+                if (enemy!=null) transform.position = new Vector3(enemy.transform.position.x, transform.position.y, enemy.transform.position.z - zOffset);
+                break;
+        }
     }
 
     void LateUpdate()
