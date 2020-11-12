@@ -34,6 +34,7 @@ public class ShellExplosion : MonoBehaviour
             bullet.SetActive(false);
             sc.enabled = false;
             bullet.SetActive(false);
+            Handheld.Vibrate();
             if (Hit_Player != null) Hit_Player(this);
         }
         else if ((other.gameObject.CompareTag("Enemy") && bulletScript.getUser() != Bullet.User.enemy))

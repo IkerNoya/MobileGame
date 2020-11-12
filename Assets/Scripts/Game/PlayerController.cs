@@ -32,11 +32,11 @@ public class PlayerController : MonoBehaviour
         if (isDead)
             return;
 
-        horizontalRotation = Input.GetAxis("Horizontal");
-        transform.position += transform.forward * Input.GetAxis("Vertical") * Time.deltaTime * speed;
+        horizontalRotation = InputManager.Instance.GetAxis("Horizontal_1");
+        transform.position += transform.forward * InputManager.Instance.GetAxis("Vertical_1") * Time.deltaTime * speed;
         if (horizontalRotation != 0)
             transform.Rotate(new Vector3(0, horizontalRotation * rotSpeed * Time.deltaTime, 0));
-        if (Input.GetAxis("Vertical") > 0 || Input.GetAxis("Vertical") < 0) canShoot = false;
+        if (InputManager.Instance.GetAxis("Vertical_1") > 0 || InputManager.Instance.GetAxis("Vertical_1") < 0) canShoot = false;
         else canShoot = true;
 
     }

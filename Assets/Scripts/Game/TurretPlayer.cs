@@ -11,8 +11,8 @@ public class TurretPlayer : TurretController
     GameObject tank;
     Bullet bulletScript;
     GameObject aim;
-    [SerializeField]float orbitDistance=10f;
-    [SerializeField]float orbitDegreePerSecond = 180f;
+    [SerializeField] float orbitDistance = 10f;
+    [SerializeField] float orbitDegreePerSecond = 180f;
     ObjectPooler pooler;
 
     void Start()
@@ -27,6 +27,7 @@ public class TurretPlayer : TurretController
 
     void Update()
     {
+#if UNITY_EDITOR || UNITY_STANDALONE
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit))
@@ -39,23 +40,42 @@ public class TurretPlayer : TurretController
                 }
             }
         }
-        if (target != null && player.GetShootBool())
+
+
+#elif UNITY_ANDROID
+
+         if (Input.touchCount > 0 && Input.touches[0].phase == TouchPhase.Began)
         {
-            timer += Time.deltaTime;
-            canRotate = true;
-            if (timer >= timeLimit - 0.5f)
+            Ray touchRay = Camera.main.ScreenPointToRay(Input.touches[0].position);
+            RaycastHit touchHit;
+            if (Physics.Raycast(touchRay, out touchHit))
             {
-                pooler.SpawnBulletsFromPool("Bullet_Player", shootingPoint.transform.position, Quaternion.identity, Bullet.User.player, target.position - transform.position);
-                if(bulletScript!=null) bulletScript.setUser(Bullet.User.player);
-                if(flash!=null) flash.Play();
-                timer = 0;
+                if (touchHit.collider.CompareTag("Enemy"))
+                {
+                    target = touchHit.collider.transform;
+                }
             }
         }
-        else if (target == null || !player.GetShootBool())
-        {
-            canRotate = false;
-            timer = 0;
-        }
+
+#endif
+        if (target != null && player.GetShootBool())
+            {
+                timer += Time.deltaTime;
+                canRotate = true;
+                if (timer >= timeLimit - 0.5f)
+                {
+                    pooler.SpawnBulletsFromPool("Bullet_Player", shootingPoint.transform.position, Quaternion.identity, Bullet.User.player, target.position - transform.position);
+                    if (bulletScript != null) bulletScript.setUser(Bullet.User.player);
+                    if (flash != null) flash.Play();
+                    timer = 0;
+                }
+            }
+            else if (target == null || !player.GetShootBool())
+            {
+                canRotate = false;
+                timer = 0;
+            }
+        
     }
     void LateUpdate()
     {
@@ -81,9 +101,10 @@ public class TurretPlayer : TurretController
     {
         if (target != null)
         {
-            aim.transform.position = transform.position + (aim.transform.position - transform.position).normalized * orbitDistance; 
-            aim.transform.position = Vector3.RotateTowards(transform.position, transform.position + (direction.normalized * orbitDistance), 360f ,orbitDegreePerSecond * Time.deltaTime);
+            aim.transform.position = transform.position + (aim.transform.position - transform.position).normalized * orbitDistance;
+            aim.transform.position = Vector3.RotateTowards(transform.position, transform.position + (direction.normalized * orbitDistance), 360f, orbitDegreePerSecond * Time.deltaTime);
             aim.transform.rotation = Quaternion.LookRotation(direction.normalized, Vector3.up);
         }
     }
+
 }

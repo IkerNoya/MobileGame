@@ -66,9 +66,7 @@ public class ObjectPooler : MonoBehaviour
             return null;
         }
 
-        Debug.Log(poolDictionary[tag].Count + " Antes");
         GameObject objectToSpawn = poolDictionary[tag].Dequeue();
-        Debug.Log(poolDictionary[tag].Count + " medio");
         objectToSpawn.GetComponent<Bullet>().setUser(user);
         objectToSpawn.GetComponent<Bullet>().SetDirection(direction);
         objectToSpawn.SetActive(true);
@@ -81,7 +79,6 @@ public class ObjectPooler : MonoBehaviour
 
         poolDictionary[tag].Enqueue(objectToSpawn);
 
-        Debug.Log(poolDictionary[tag].Count + " final");
         return objectToSpawn;
     }
 }
