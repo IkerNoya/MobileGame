@@ -44,7 +44,7 @@ public class TurretPlayer : TurretController
 
 #elif UNITY_ANDROID
 
-         if (Input.touchCount > 0 && Input.touches[0].phase == TouchPhase.Began)
+         if (Input.touchCount > 0 && Input.touches[1].phase == TouchPhase.Began)
         {
             Ray touchRay = Camera.main.ScreenPointToRay(Input.touches[0].position);
             RaycastHit touchHit;

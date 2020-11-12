@@ -1,7 +1,6 @@
-﻿using System.Collections;
+﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Tilemaps;
 
 public class PlayerController : MonoBehaviour
 {
@@ -18,6 +17,8 @@ public class PlayerController : MonoBehaviour
     float horizontalRotation;
     bool canShoot = false;
     bool isDead = false;
+
+    public static event Action<PlayerController> Win;
     private void Awake()
     {
         ShellExplosion.Hit_Player += TakeDamage;
@@ -64,6 +65,13 @@ public class PlayerController : MonoBehaviour
             tank.SetActive(false);
             bCollider.enabled = false;
             if (tankExplosion != null) tankExplosion.Play();
+        }
+    }
+    void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("WinPlatform"))
+        {
+            Win?.Invoke(this);
         }
     }
     private void OnDisable()
