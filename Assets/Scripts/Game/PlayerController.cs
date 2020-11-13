@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -21,6 +22,7 @@ public class PlayerController : MonoBehaviour
     bool isDead = false;
 
     public static event Action<PlayerController> WinPlayformCollision;
+    public static event Action<PlayerController> Loose;
     private void Awake()
     {
         ShellExplosion.Hit_Player += TakeDamage;
@@ -58,6 +60,7 @@ public class PlayerController : MonoBehaviour
         transform.position = initialPos;
         transform.rotation = initialRot;
         isDead = false;
+        GetComponent<Rigidbody>().useGravity = true;
         tank.SetActive(true);
         bCollider.enabled = true;
         hp = 100;
@@ -70,7 +73,10 @@ public class PlayerController : MonoBehaviour
             isDead = true;
             tank.SetActive(false);
             bCollider.enabled = false;
+            GetComponent<Rigidbody>().useGravity = false;
             if (tankExplosion != null) tankExplosion.Play();
+            StartCoroutine(LooseGameEvent(2));
+            
         }
     }
     void OnCollisionEnter(Collision collision)
@@ -87,5 +93,11 @@ public class PlayerController : MonoBehaviour
     public int GetHP()
     {
         return hp;
+    }
+    IEnumerator LooseGameEvent(float time)
+    {
+        yield return new WaitForSeconds(time);
+        Loose?.Invoke(this);
+        yield return null;
     }
 }

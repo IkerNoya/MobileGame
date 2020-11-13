@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -18,6 +19,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         PlayerController.WinPlayformCollision += CheckWinScreen;
+        PlayerController.Loose += LooseGame;
         player = GameObject.FindGameObjectWithTag("Player");
         DeactivateWinScreen();
         StartLevel();
@@ -57,6 +59,11 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    void LooseGame(PlayerController pc)
+    {
+        SceneManager.LoadScene("menu");
+    }
+
     public int GetLevelsCompleted()
     {
         return levelsCompleted;
@@ -65,5 +72,6 @@ public class GameManager : MonoBehaviour
     void OnDisable()
     {
         PlayerController.WinPlayformCollision -= CheckWinScreen;
+        PlayerController.WinPlayformCollision -= LooseGame;
     }
 }
