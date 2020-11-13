@@ -13,18 +13,22 @@ public class PlayerController : MonoBehaviour
 
     GameObject tank;
     BoxCollider bCollider;
+    Vector3 initialPos;
+    Quaternion initialRot;
 
     float horizontalRotation;
     bool canShoot = false;
     bool isDead = false;
 
-    public static event Action<PlayerController> Win;
+    public static event Action<PlayerController> WinPlayformCollision;
     private void Awake()
     {
         ShellExplosion.Hit_Player += TakeDamage;
     }
     private void Start()
     {
+        initialPos = transform.position;
+        initialRot = transform.rotation;
         tank = GameObject.FindGameObjectWithTag("Tank");
         bCollider = GetComponent<BoxCollider>();
     }
@@ -49,11 +53,13 @@ public class PlayerController : MonoBehaviour
     {
         return aimIndicator;
     }
-    void Respawn()
+    public void Respawn()
     {
+        transform.position = initialPos;
+        transform.rotation = initialRot;
         isDead = false;
         tank.SetActive(true);
-        bCollider.enabled = false;
+        bCollider.enabled = true;
         hp = 100;
     }
     void TakeDamage(ShellExplosion explotion)
@@ -71,7 +77,7 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("WinPlatform"))
         {
-            Win?.Invoke(this);
+            WinPlayformCollision?.Invoke(this);
         }
     }
     private void OnDisable()

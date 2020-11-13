@@ -5,22 +5,42 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     [SerializeField] GameObject winScreen;
-
+    [SerializeField] LevelManager levelManager;
+    int levelsCompleted = 0;
+    GameObject player;
+    #region SINGLETON
+    public static GameManager instance;
+    void Awake()
+    {
+        instance = this;
+    }
+    #endregion
     void Start()
     {
-        PlayerController.Win += ActivateWinScreen;
+        PlayerController.WinPlayformCollision += CheckWinScreen;
+        player = GameObject.FindGameObjectWithTag("Player");
         DeactivateWinScreen();
+        StartLevel();
     }
 
-    // Update is called once per frame
     void Update()
     {
         
     }
 
-    void OnLevelLoad()
+    void StartLevel()
     {
-        
+        int enemyAmmount = 1 + levelsCompleted;
+        if(enemyAmmount>4)
+            enemyAmmount = Random.Range(4, 7);
+        levelManager.LoadLevel(enemyAmmount);
+        player.GetComponent<PlayerController>().Respawn();
+    }
+
+    public void OnClickContinue()
+    {
+        StartLevel();
+        DeactivateWinScreen();
     }
 
     void DeactivateWinScreen()
@@ -28,15 +48,22 @@ public class GameManager : MonoBehaviour
         winScreen.SetActive(false);
     }
 
-    void ActivateWinScreen(PlayerController pc)
+    void CheckWinScreen(PlayerController pc)
     {
-        winScreen.SetActive(true);
+        if (levelManager.GetActiveEnemies() <= 0)
+        {
+            levelsCompleted++;
+            winScreen.SetActive(true);
+        }
     }
 
-    
+    public int GetLevelsCompleted()
+    {
+        return levelsCompleted;
+    }
 
     void OnDisable()
     {
-        PlayerController.Win -= ActivateWinScreen;
+        PlayerController.WinPlayformCollision -= CheckWinScreen;
     }
 }

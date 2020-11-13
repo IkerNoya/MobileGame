@@ -59,27 +59,32 @@ public class TurretPlayer : TurretController
 
 #endif
         if (target != null && player.GetShootBool())
+        {
+            timer += Time.deltaTime;
+            canRotate = true;
+            if (timer >= timeLimit - 0.5f)
             {
-                timer += Time.deltaTime;
-                canRotate = true;
-                if (timer >= timeLimit - 0.5f)
-                {
-                    pooler.SpawnBulletsFromPool("Bullet_Player", shootingPoint.transform.position, Quaternion.identity, Bullet.User.player, target.position - transform.position);
-                    if (bulletScript != null) bulletScript.setUser(Bullet.User.player);
-                    if (flash != null) flash.Play();
-                    timer = 0;
-                }
-            }
-            else if (target == null || !player.GetShootBool())
-            {
-                canRotate = false;
+                pooler.SpawnBulletsFromPool("Bullet_Player", shootingPoint.transform.position, Quaternion.identity, Bullet.User.player, target.position - transform.position);
+                if (bulletScript != null) bulletScript.setUser(Bullet.User.player);
+                if (flash != null) flash.Play();
                 timer = 0;
             }
-        
+        }
+        else if (!player.GetShootBool())
+        {
+            canRotate = false;
+            timer = 0;
+        }
+        if (target != null && !target.gameObject.activeSelf)
+        {
+            canRotate = false;
+            timer = 0;
+            target = null;
+        }
     }
     void LateUpdate()
     {
-        if (target != null)
+        if (target != null && target.gameObject.activeSelf)
         {
             Vector3 direction = target.position - transform.position;
             if (canRotate)
@@ -99,11 +104,13 @@ public class TurretPlayer : TurretController
     }
     void OrbitAimIndicator(Vector3 direction)
     {
-        if (target != null)
+        direction.y = 0;
+        direction.Normalize();
+        if (target != null && target.gameObject.activeSelf)
         {
             aim.transform.position = transform.position + (aim.transform.position - transform.position).normalized * orbitDistance;
-            aim.transform.position = Vector3.RotateTowards(transform.position, transform.position + (direction.normalized * orbitDistance), 360f, orbitDegreePerSecond * Time.deltaTime);
-            aim.transform.rotation = Quaternion.LookRotation(direction.normalized, Vector3.up);
+            aim.transform.position = Vector3.RotateTowards(transform.position, transform.position + (direction * orbitDistance), 360f, orbitDegreePerSecond * Time.deltaTime);
+            aim.transform.rotation = Quaternion.LookRotation(direction, Vector3.up);
         }
     }
 

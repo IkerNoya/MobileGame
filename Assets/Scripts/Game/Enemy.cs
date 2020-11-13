@@ -27,16 +27,24 @@ public class Enemy : MonoBehaviour
         hp -= damage;
         if (hp <= 0)
         {
-            Destroy(tank);
+            tank.SetActive(false);
             explotion.Play();
             isDead = true;
-            bCollider.enabled = false;
-            Destroy(gameObject, 1.5f);
+            StartCoroutine(WaitForExplotion());
         }
     }
 
     public int GetHP()
     {
         return hp;
+    }
+
+    IEnumerator WaitForExplotion()
+    {
+        yield return new WaitForSeconds(1f);
+        transform.position = new Vector3(100, 100, 100);
+        tank.SetActive(true);
+        gameObject.SetActive(false);
+        hp = 100;
     }
 }
