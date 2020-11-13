@@ -46,7 +46,7 @@ public class TurretPlayer : TurretController
 
          if (Input.touchCount > 0 && Input.touches[1].phase == TouchPhase.Began)
         {
-            Ray touchRay = Camera.main.ScreenPointToRay(Input.touches[0].position);
+            Ray touchRay = Camera.main.ScreenPointToRay(Input.touches[1].position);
             RaycastHit touchHit;
             if (Physics.Raycast(touchRay, out touchHit))
             {
