@@ -12,13 +12,4 @@ public class UIGame : MonoBehaviour
         levelAmmount.text = GameManager.instance.GetLevelsCompleted().ToString();
     }
 
-    public void OnClickMenu()
-    {
-        SceneManager.LoadScene("Menu");
-    }
-
-    public void OnClickQuit()
-    {
-        Application.Quit();
-    }
 }

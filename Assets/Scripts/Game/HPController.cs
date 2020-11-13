@@ -25,8 +25,8 @@ public class HPController : MonoBehaviour
     Vector3 initialPos;
     void Awake()
     {
-        initialRot = slider.transform.rotation;
-        initialPos = slider.transform.position;
+        if(slider!=null) initialRot = slider.transform.rotation;
+        if(slider!=null) initialPos = slider.transform.position;
     }
 
     void Start()
@@ -60,7 +60,7 @@ public class HPController : MonoBehaviour
 
     void LateUpdate()
     {
-        slider.transform.rotation = initialRot;
+        if(slider!=null) slider.transform.rotation = initialRot;
     }
 
 }
