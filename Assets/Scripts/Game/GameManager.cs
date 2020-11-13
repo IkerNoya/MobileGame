@@ -5,15 +5,11 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     [SerializeField] GameObject winScreen;
-    [SerializeField] List<GameObject> enemies = new List<GameObject>();
+
     void Start()
     {
         PlayerController.Win += ActivateWinScreen;
         DeactivateWinScreen();
-        for (int i = 0; i < 8; i++)
-        {
-            enemies.Add(GameObject.FindGameObjectWithTag("Enemy"));
-        }
     }
 
     // Update is called once per frame
@@ -36,6 +32,8 @@ public class GameManager : MonoBehaviour
     {
         winScreen.SetActive(true);
     }
+
+    
 
     void OnDisable()
     {

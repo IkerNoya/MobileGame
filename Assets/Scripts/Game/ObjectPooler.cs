@@ -21,6 +21,7 @@ public class ObjectPooler : MonoBehaviour
         public int size;
     }
     public List<Pool> pools;
+
     public Dictionary<string, Queue<GameObject>> poolDictionary;
     void Start()
     {
@@ -32,7 +33,7 @@ public class ObjectPooler : MonoBehaviour
             for(int i = 0; i < pool.size; i++)
             {
                 GameObject obj = Instantiate(pool.prefab);
-                obj.SetActive(false);
+                if(obj.CompareTag("Bullet")) obj.SetActive(false);
                 ObjectPool.Enqueue(obj);
             }
             poolDictionary.Add(pool.tag, ObjectPool);
