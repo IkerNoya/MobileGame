@@ -9,7 +9,7 @@ public class UIGame : MonoBehaviour
     [SerializeField] Text levelAmmount;
     void Update()
     {
-        levelAmmount.text = "TOTAL " + GameManager.instance.GetLevelsCompleted();
+        levelAmmount.text = GameManager.instance.GetLevelsCompleted().ToString();
     }
 
     public void OnClickMenu()
